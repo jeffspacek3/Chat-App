@@ -17,6 +17,22 @@ const Start = ({ navigation }) => {
   const [background, setBackground] = useState("");
   const onPress = () => setCount((prevCount) => prevCount + 1);
 
+  // handle the sign-in anonymously process for the user.
+  const signInUser = () => {
+    signInAnonymously(auth)
+      .then((result) => {
+        navigation.navigate("Chat", {
+          name: name,
+          background: background,
+          userID: result.user.uid,
+        });
+        Alert.alert("Signed in Successfully!");
+      })
+      .catch((error) => {
+        Alert.alert("Unable to sign in, try later again.");
+      });
+  };
+
   const styles = StyleSheet.create({
     container: {
       flex: 1,
@@ -35,21 +51,30 @@ const Start = ({ navigation }) => {
       height: 50,
       lineHeight: 50,
     },
-    button: { alingItems: "center", 
-    backgroundColor: "#757083",
-    fontSize: "16",
-    fontWeight: "600",
-    fontColor: "#FFFFFF",
-    padding: 10 },
+    button: {
+      alingItems: "center",
+      backgroundColor: "#757083",
+      fontSize: "16",
+      fontWeight: "600",
+      fontColor: "#FFFFFF",
+      padding: 10,
+    },
+    imageBackground: {
+      flex: 1,
+      justifyContent: "center",
+      alignItems: "center",
+      width: "100%",
+      height: "100%",
+    },
   });
 
   return (
-    <ImageBackground
-      source={require("../img/background_image.png")}
-      style={styles.imageBackground}
-      resizeMode="cover"
-    >
-      <View style={styles.appTitle}>
+    <View style={styles.container}>
+      <ImageBackground
+        source={require("../img/background_image.png")}
+        style={styles.imageBackground}
+        resizeMode="cover"
+      >
         <Text>Welcome to Chat-App</Text>
         <TextInput
           style={styles.textInput}
@@ -60,8 +85,8 @@ const Start = ({ navigation }) => {
         <TouchableOpacity style={styles.button} onPress={onPress}>
           <Text>Start Chatting</Text>
         </TouchableOpacity>
-      </View>
-    </ImageBackground>
+      </ImageBackground>
+    </View>
   );
 };
 
