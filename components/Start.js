@@ -34,10 +34,27 @@ const Start = ({ navigation }) => {
   };
 
   const styles = StyleSheet.create({
-    container: {
+    imageBackground: {
       flex: 1,
       justifyContent: "center",
       alignItems: "center",
+    },
+    appTitle: {
+      flex: 1,
+      fontSize: 45,
+      fontWeight: "600",
+      color: "#ffffff",
+      justifyContent: "center",
+      marginTop: 80,
+    },
+    container: {
+      width: "88%",
+      height: "44%",
+      backgroundColor: "white",
+      alignItems: "center",
+      marginBottom: 20,
+      justifyContent: "space-evently",
+      borderRadius: 4,
     },
     textInput: {
       width: "88%",
@@ -59,34 +76,67 @@ const Start = ({ navigation }) => {
       fontColor: "#FFFFFF",
       padding: 10,
     },
-    imageBackground: {
-      flex: 1,
-      justifyContent: "center",
-      alignItems: "center",
-      width: "100%",
-      height: "100%",
-    },
   });
 
   return (
-    <View style={styles.container}>
-      <ImageBackground
-        source={require("../img/background_image.png")}
-        style={styles.imageBackground}
-        resizeMode="cover"
-      >
-        <Text>Welcome to Chat-App</Text>
+    <ImageBackground
+      source={require("../img/background_image.png")}
+      style={styles.imageBackground}
+      resizeMode="cover"
+    >
+      <Text style={styles.appTitle}>App Title</Text>
+      <View style={styles.container}>
         <TextInput
           style={styles.textInput}
           value={name}
           onChangeText={setName}
           placeholder="Your Name"
-        />
-        <TouchableOpacity style={styles.button} onPress={onPress}>
-          <Text>Start Chatting</Text>
+        ></TextInput>
+<View style={styles.chooseColorBox}>
+          <Text style={styles.chooseColorText}>Choose Background Color:</Text>
+          <View style={styles.colorButtonsContainer}>
+            {/* Render a TouchableOpacity for each color option */}
+            <TouchableOpacity
+              style={[
+                styles.chooseColor,
+                { backgroundColor: "#090C08" },
+                background === "#090C08" && styles.selectedColor,
+              ]}
+              // Set the function to handle button press
+              onPress={() => setBackground("#090C08")}
+            ></TouchableOpacity>
+            <TouchableOpacity
+              style={[
+                styles.chooseColor,
+                { backgroundColor: "#474056" },
+                background === "#474056" && styles.selectedColor,
+              ]}
+              onPress={() => setBackground("#474056")}
+            ></TouchableOpacity>
+            <TouchableOpacity
+              style={[
+                styles.chooseColor,
+                { backgroundColor: "#8A95A5" },
+                background === "#8A95A5" && styles.selectedColor,
+              ]}
+              onPress={() => setBackground("#8A95A5")}
+            ></TouchableOpacity>
+            <TouchableOpacity
+              style={[
+                styles.chooseColor,
+                { backgroundColor: "#B9C6AE" },
+                background === "#B9C6AE" && styles.selectedColor,
+              ]}
+              onPress={() => setBackground("#B9C6AE")}
+            ></TouchableOpacity>
+          </View>
+        </View>
+        {/* Render a TouchableOpacity for starting the chat */}
+        <TouchableOpacity style={styles.button} onPress={signInUser}>
+          <Text style={styles.textButton}>Start Chatting</Text>
         </TouchableOpacity>
-      </ImageBackground>
-    </View>
+      </View>
+    </ImageBackground>
   );
 };
 
