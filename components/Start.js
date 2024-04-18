@@ -17,6 +17,7 @@ const Start = ({ navigation }) => {
   const [background, setBackground] = useState("");
   const onPress = () => setCount((prevCount) => prevCount + 1);
 
+  /*
   // handle the sign-in anonymously process for the user.
   const signInUser = () => {
     signInAnonymously(auth)
@@ -32,7 +33,7 @@ const Start = ({ navigation }) => {
         Alert.alert("Unable to sign in, try later again.");
       });
   };
-
+*/
   const styles = StyleSheet.create({
     imageBackground: {
       flex: 1,
@@ -58,23 +59,52 @@ const Start = ({ navigation }) => {
     },
     textInput: {
       width: "88%",
-      padding: 15,
+      padding: 10,
       borderWidth: 1,
-      marginTop: 15,
-      marginBottom: 15,
-      height: 50,
-    },
-    textDisplay: {
-      height: 50,
-      lineHeight: 50,
+      fontSize: 16,
+      fontWeight: "300",
+      color: "#757083",
+      opacity: 0.7,
+      borderColor: "#757083",
+      borderRadius: 4,
     },
     button: {
-      alingItems: "center",
+      width: "84%",
+      alignItems: "center",
+      justifyContent: "center",
       backgroundColor: "#757083",
-      fontSize: "16",
-      fontWeight: "600",
-      fontColor: "#FFFFFF",
       padding: 10,
+      marginTop: 5,
+      borderRadius: 4,
+    },
+    textButton: {
+      fontSize: 16,
+      fontWeight: "600",
+      color: "#ffffff",
+    },
+    colorButtonsContainer: {
+      flexDirection: "row",
+      alignSelf: "flex-start",
+    },
+    chooseColor: {
+      width: 30,
+      height: 30,
+      borderRAdius: 15,
+      border: 3,
+      marginRight: 15,
+      borderColor: "white",
+    },
+    selectedColor: {
+      boderColor: "#FCD95B",
+      borderWidth: 3,
+    },
+    chooseColorText: {
+      fontSize: 16,
+      fontWeight: "300",
+      color: "#757083",
+      textAlign: "left",
+      alignSelf: "flex-start",
+      marginBottom: 10,
     },
   });
 
@@ -92,7 +122,8 @@ const Start = ({ navigation }) => {
           onChangeText={setName}
           placeholder="Your Name"
         ></TextInput>
-<View style={styles.chooseColorBox}>
+
+        <View style={styles.chooseColorBox}>
           <Text style={styles.chooseColorText}>Choose Background Color:</Text>
           <View style={styles.colorButtonsContainer}>
             {/* Render a TouchableOpacity for each color option */}
@@ -132,7 +163,11 @@ const Start = ({ navigation }) => {
           </View>
         </View>
         {/* Render a TouchableOpacity for starting the chat */}
-        <TouchableOpacity style={styles.button} onPress={signInUser}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() =>
+            navigation.navigate("Chat", { name: name, backgound: backgound })
+          }>
           <Text style={styles.textButton}>Start Chatting</Text>
         </TouchableOpacity>
       </View>
