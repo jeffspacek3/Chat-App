@@ -3,10 +3,10 @@ import {
   StyleSheet,
   View,
   Text,
-  Button,
   TextInput,
   ImageBackground,
   TouchableOpacity,
+  onPress,
 } from "react-native";
 
 // Define the Start Component
@@ -15,25 +15,7 @@ const Start = ({ navigation }) => {
   const [name, setName] = useState("");
   //State to hold the chosen background color
   const [background, setBackground] = useState("");
-  const onPress = () => setCount((prevCount) => prevCount + 1);
 
-  /*
-  // handle the sign-in anonymously process for the user.
-  const signInUser = () => {
-    signInAnonymously(auth)
-      .then((result) => {
-        navigation.navigate("Chat", {
-          name: name,
-          background: background,
-          userID: result.user.uid,
-        });
-        Alert.alert("Signed in Successfully!");
-      })
-      .catch((error) => {
-        Alert.alert("Unable to sign in, try later again.");
-      });
-  };
-*/
   const styles = StyleSheet.create({
     imageBackground: {
       flex: 1,
@@ -167,7 +149,8 @@ const Start = ({ navigation }) => {
           style={styles.button}
           onPress={() =>
             navigation.navigate("Chat", { name: name, backgound: backgound })
-          }>
+          }
+        >
           <Text style={styles.textButton}>Start Chatting</Text>
         </TouchableOpacity>
       </View>
