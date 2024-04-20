@@ -6,7 +6,6 @@ import {
   TextInput,
   ImageBackground,
   TouchableOpacity,
-  onPress,
 } from "react-native";
 
 // Define the Start Component
@@ -31,12 +30,13 @@ const Start = ({ navigation }) => {
       marginTop: 80,
     },
     container: {
-      width: "88%",
-      height: "44%",
+      flex: 1,
+      width: "100%",
+      height: "100%",
       backgroundColor: "white",
       alignItems: "center",
       marginBottom: 20,
-      justifyContent: "space-evently",
+      justifyContent: "space-evenly",
       borderRadius: 4,
     },
     textInput: {
@@ -148,7 +148,7 @@ const Start = ({ navigation }) => {
         <TouchableOpacity
           style={styles.button}
           onPress={() =>
-            navigation.navigate("Chat", { name: name, backgound: backgound })
+            navigation.navigate("Chat", { name: name, background: background })
           }
         >
           <Text style={styles.textButton}>Start Chatting</Text>
