@@ -2,8 +2,6 @@ import { useEffect, useState } from "react";
 import { StyleSheet, View, KeyboardAvoidingView, Platform } from "react-native";
 import { GiftedChat } from "react-native-gifted-chat";
 
-
-
 const Chat = ({ route, navigation }) => {
   const { name } = route.params;
   const [messages, setMessages] = useState([]);
@@ -52,6 +50,7 @@ const Chat = ({ route, navigation }) => {
   );
 };
 
+// styles
 const styles = StyleSheet.create({
   container: {
     flex: 1,
