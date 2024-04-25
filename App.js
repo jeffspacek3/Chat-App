@@ -1,17 +1,19 @@
 // Import Screens
 import Start from "./components/Start";
 import Chat from "./components/Chat";
-import CustomActions from "./components/CustomActions";
-
-// Database
-import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
 
 // Import react Navigation
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import { useState } from "react";
+// Database
+import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
+
+
+
+import { useState, useEffect } from "react";
+import { Logbox, Alert } from "firebase/storage";
 
 //Creat the Navigator
 const Stack = createNativeStackNavigator();
