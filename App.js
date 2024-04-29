@@ -21,6 +21,7 @@ const Stack = createNativeStackNavigator();
 const App = () => {
   const [text, setText] = useState("");
 
+  // Initialize Firebase
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
 

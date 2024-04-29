@@ -12,7 +12,7 @@ import { getAuth, signInAnonymously } from "firebase/auth";
 
 // Define the Start Component
 const Start = ({ navigation }) => {
-  //const auth = getAuth();
+  const auth = getAuth();
   // State to hold the name input value
   const [name, setName] = useState("");
   //State to hold the chosen background color
