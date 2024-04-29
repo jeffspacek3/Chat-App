@@ -20,13 +20,20 @@ const Stack = createNativeStackNavigator();
 
 const App = () => {
   const [text, setText] = useState("");
-  const firebaseConfig = {};
 
-  //Initizlize Firebase
   const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
 
   //initialize /clooud Firestore and get a reference to the service
-  //const db = getFirestore(app);
+
+  const firebaseConfig = {
+    apiKey: 'YOU_API_KEY',
+    authDomain: 'YOUR_APP_DOMAIN',
+    projectId: 'YOUR_APP_ID',
+    storageBucket: 'YOUR_STORAGE_BUCKET',
+    messagingSenderId: 'YOUR_SENDER_ID',
+    appId: 'YOUR_APP_ID',
+  };
 
   return (
     <NavigationContainer>
