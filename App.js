@@ -10,8 +10,6 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 
-
-
 import { useState, useEffect } from "react";
 import { Logbox, Alert } from "firebase/storage";
 
@@ -25,15 +23,14 @@ const App = () => {
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
 
-  //initialize /clooud Firestore and get a reference to the service
-
+  // Your web app's Firebase configuration
   const firebaseConfig = {
-    apiKey: 'YOU_API_KEY',
-    authDomain: 'YOUR_APP_DOMAIN',
-    projectId: 'YOUR_APP_ID',
-    storageBucket: 'YOUR_STORAGE_BUCKET',
-    messagingSenderId: 'YOUR_SENDER_ID',
-    appId: 'YOUR_APP_ID',
+    apiKey: "AIzaSyBWfvWbXQGAT-UB6nps9l3Y3ITMxPu-kUw",
+    authDomain: "chatapp-b8f05.firebaseapp.com",
+    projectId: "chatapp-b8f05",
+    storageBucket: "chatapp-b8f05.appspot.com",
+    messagingSenderId: "845432723514",
+    appId: "1:845432723514:web:c5cd302987c8a8daa63d03",
   };
 
   return (
