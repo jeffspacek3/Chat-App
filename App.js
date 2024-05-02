@@ -19,10 +19,6 @@ const Stack = createNativeStackNavigator();
 const App = () => {
   const [text, setText] = useState("");
 
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
-
   // Your web app's Firebase configuration
   const firebaseConfig = {
     apiKey: "AIzaSyBWfvWbXQGAT-UB6nps9l3Y3ITMxPu-kUw",
@@ -33,11 +29,17 @@ const App = () => {
     appId: "1:845432723514:web:c5cd302987c8a8daa63d03",
   };
 
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Start">
         <Stack.Screen name="Start" component={Start} />
-        <Stack.Screen name="Chat" component={Chat} />
+        <Stack.Screen name="Chat">
+          {(props) => <Chat db={db} {...props} />}
+        </Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
   );
