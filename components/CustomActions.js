@@ -1,4 +1,6 @@
-import { useEffect, useState } from "react";
+// Import React
+import React from "react";
+import { useState } from "react";
 import { StyleSheet, View, Text } from "react-native";
 
 const CustomActions = ({ db }) => {

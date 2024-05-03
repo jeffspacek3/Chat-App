@@ -4,13 +4,15 @@ import Chat from "./components/Chat";
 
 // Import React and Navigation
 import { useState, useEffect } from "react";
+import { LogBox, Alert } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { GiftedChat, Bubble, InputToolbar } from "react-native-gifted-chat";
 
 // Firebase Database
 import { initializeApp } from "firebase/app";
-import { Logbox, Alert } from "firebase/storage";
 import { getFirestore, disableNetwork, enableNetwork } from "firebase/firestore";
+import { getStorage } from "firebase/storage";
 
 //Import NetInfo and Network Connection
 import { useNetInfo } from "@react-native-community/netinfo";
@@ -55,7 +57,6 @@ const App = () => {
           <Chat
           isConnected={connectionStatus.isConnected}
           db={db}
-          sotrage={sotrage}
           {...props} />}
         </Stack.Screen>
       </Stack.Navigator>

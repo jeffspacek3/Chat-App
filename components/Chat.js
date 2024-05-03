@@ -4,7 +4,7 @@ import CustomActions from "./CustomActions";
 // Import React, React Native,
 import { useEffect, useState } from "react";
 import { StyleSheet, View, KeyboardAvoidingView, Platform } from "react-native";
-import { GiftedChat, Bubble } from "react-native-gifted-chat";
+import { GiftedChat, Bubble, InputToolbar } from "react-native-gifted-chat";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // Firebase Database
@@ -49,7 +49,10 @@ const Chat = ({ route, navigation, db, isConnected, storage }) => {
           });
         });
         setMessages(newMessages);
+        cacheMessages(newMessages);
       });
+    } else {
+      loadCachedMessages()
     }
 
     // Code Clean Up
@@ -95,6 +98,7 @@ const Chat = ({ route, navigation, db, isConnected, storage }) => {
   return (
     <View style={[styles.container, { backgroundColor: background }]}>
       <GiftedChat
+      renderInputToolbar={renderInputToolbar}
         messages={messages}
         renderBubble={renderBubble}
         onSend={(messages) => onSend(messages)}
