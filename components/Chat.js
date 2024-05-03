@@ -1,7 +1,13 @@
+// Import Compenents
+import CustomActions from "./CustomActions";
+
+// Import React, React Native,
 import { useEffect, useState } from "react";
 import { StyleSheet, View, KeyboardAvoidingView, Platform } from "react-native";
-import CustomActions from "./CustomActions";
 import { GiftedChat, Bubble } from "react-native-gifted-chat";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+// Firebase Database
 import {
   onSnapshot,
   query,
@@ -10,12 +16,64 @@ import {
   orderBy,
 } from "firebase/firestore";
 
-const Chat = ({ route, navigation }) => {
-  const { name } = route.params;
-  const [messages] = useState([]);
+// Destructure Name and Background From route.params
+const Chat = ({ route, navigation, db, isConnected, storage }) => {
+  const { name, background, userID } = route.params;
+  const [messages, setMessages] = useState([]);
+  letsoundObject = null;
+
+  let unsubMessages;
+
+  useEffect(() => {
+    navigation.setOptions({ title: name });
+
+    if (isConnected == true) {
+      // unregister current onSnapshot() listener to avoid registering multiple listeners when
+      // useEffect code is re-executed.
+      if (unsubMessages) unsubMessages();
+      unsubmessages = null;
+
+      const q = query(collection(db, "messages"), orderBy("createdAt", "desc"));
+
+      // Subscribe to changes in the "messages" collection using onSnapshot.
+      // This function will be called whenever there are changes in the collection.
+      unsubMessages = onSnapshot(q, (documentsSnapshot) => {
+        // Initialize an empty array to store the new messages
+        let newMessages = [];
+        // Iterate through each document in the snapshot
+        documentsSnapshot.forEach((doc) => {
+          newMessages.push({
+            id: doc.id,
+            ...doc.data(),
+            createdAt: new Date(doc.data().createdAt.toMillis()),
+          });
+        });
+        setMessages(newMessages);
+      });
+    }
+
+    // Code Clean Up
+    return () => {
+      if (unsubMessages) unsubMessages();
+    };
+  }, [isConnected]);
+  // isconnected is used as a dependency value and will allow the component to call the callback of useEffect whenewer the isConnected prop's value changes.
+
+  const cacheMessages = async (messagesToCache) => {
+    try {
+      await AsyncStorage.setItem("messages", JSON.stringify(messagesToCache));
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
   const onSend = (newMessages) => {
     addDoc(collection(db, "messages"), newMessages[0]);
+  };
+
+  const renderInputToolbar = (props) => {
+    if (isConnected) return <InputToolbar {...props} />;
+    else return null;
   };
 
   const renderBubble = (props) => {
@@ -27,36 +85,12 @@ const Chat = ({ route, navigation }) => {
             backgroundColor: "#484848",
           },
           left: {
-            backgroundColor: "#fff",
+            backgroundColor: "#FFF",
           },
         }}
       />
     );
   };
-
-  useEffect(() => {
-    navigation.setOptions({ title: name });
-    const q = query(collection(db, "messages"), orderBy("createdAt", "desc"));
-
-    // Subscribe to changes in the "messages" collection using onSnapshot.
-    // This function will be called whenever there are changes in the collection.
-    unsubMessages = onSnapshot(q, (documentsSnapshot) => {
-      // Initialize an empty array to store the new messages
-      let newMessages = [];
-      // Iterate through each document in the snapshot
-      documentsSnapshot.forEach((doc) => {
-        newMessages.push({
-          id: doc.id,
-          ...doc.data(),
-          createdAt: new Date(doc.data().createdAt.toMillis()),
-        });
-      });
-      setMessages(newMessages);
-    });
-    return () => {
-      if (unsubMessages) unsubMessages();
-    };
-  }, []);
 
   return (
     <View style={[styles.container, { backgroundColor: background }]}>
