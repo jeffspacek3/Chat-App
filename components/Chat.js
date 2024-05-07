@@ -1,5 +1,3 @@
-// Import Compenents
-import CustomActions from "./CustomActions";
 
 // Import React, React Native,
 import { useEffect, useState } from "react";
@@ -15,6 +13,9 @@ import {
   addDoc,
   orderBy,
 } from "firebase/firestore";
+
+// Import Compenents
+import CustomActions from "./CustomActions";
 
 // Destructure Name and Background From route.params
 const Chat = ({ route, navigation, db, isConnected, storage }) => {
@@ -52,7 +53,7 @@ const Chat = ({ route, navigation, db, isConnected, storage }) => {
         cacheMessages(newMessages);
       });
     } else {
-      loadCachedMessages()
+      loadCachedMessages();
     }
 
     // Code Clean Up
@@ -93,12 +94,15 @@ const Chat = ({ route, navigation, db, isConnected, storage }) => {
         }}
       />
     );
+    const renderCustomActions = (props) => {
+      return <CustomActions storage={storage} {...props} userID={userID} />;
+    };
   };
 
   return (
     <View style={[styles.container, { backgroundColor: background }]}>
       <GiftedChat
-      renderInputToolbar={renderInputToolbar}
+        renderInputToolbar={renderInputToolbar}
         messages={messages}
         renderBubble={renderBubble}
         onSend={(messages) => onSend(messages)}
