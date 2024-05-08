@@ -1,11 +1,10 @@
-
 // Import React, React Native,
 import { useEffect, useState } from "react";
 import { StyleSheet, View, KeyboardAvoidingView, Platform } from "react-native";
 import { GiftedChat, Bubble, InputToolbar } from "react-native-gifted-chat";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-// Firebase Database
+// Firebase
 import {
   onSnapshot,
   query,
@@ -75,11 +74,6 @@ const Chat = ({ route, navigation, db, isConnected, storage }) => {
     addDoc(collection(db, "messages"), newMessages[0]);
   };
 
-  const renderInputToolbar = (props) => {
-    if (isConnected) return <InputToolbar {...props} />;
-    else return null;
-  };
-
   const renderBubble = (props) => {
     return (
       <Bubble
@@ -94,21 +88,54 @@ const Chat = ({ route, navigation, db, isConnected, storage }) => {
         }}
       />
     );
-    const renderCustomActions = (props) => {
-      return <CustomActions storage={storage} {...props} userID={userID} />;
-    };
+  };
+
+  const renderInputToolbar = (props) => {
+    if (isConnected) return <InputToolbar {...props} />;
+    else return null;
+  };
+
+  const renderCustomActions = (props) => {
+    return <CustomActions storage={storage} {...props} userID={userID} />;
+  };
+
+  const renderCustomView = (props) => {
+    const { currentMessage } = props;
+    if (currentMessage.location) {
+      return (
+        <View style={{ borderRadius: 23, overflow: "hidden" }}>
+          <MapView
+            style={{
+              width: 150,
+              height: 100,
+              borderRadius: 13,
+              margin: 3,
+            }}
+            region={{
+              latitude: currentMessage.location.latitude,
+              longitude: currentMessage.location.longitude,
+              latitudeDelta: 0.0922,
+              longitudeDelta: 0.0421,
+            }}
+          />
+        </View>
+      );
+    }
+    return null;
   };
 
   return (
     <View style={[styles.container, { backgroundColor: background }]}>
       <GiftedChat
-        renderInputToolbar={renderInputToolbar}
-        messages={messages}
-        renderBubble={renderBubble}
-        onSend={(messages) => onSend(messages)}
+        renderInputToolbar={renderInputToolbar} //yes
+        messages={messages} //yes
+        renderBubble={renderBubble} //yes
+        onSend={(messages) => onSend(messages)} //yes
+        renderActions={renderCustomActions}
+        renderCustomView={renderCustomView}
         user={{
-          _id: userID,
-          name: name,
+          _id: route.params.userID,
+          name: route.params.name,
         }}
       />
       {Platform.OS === "android" ? (

@@ -14,6 +14,8 @@ import {
 // Import Expo Customization
 import * as ImagePicker from "expo-image-picker";
 import * as MediaLibrary from "expo-media-library";
+import * as Location from 'expo-location';
+import MapView from 'react-native-maps';
 
 const CustomActions = () => {
   const [image, setImage] = useState(null);
