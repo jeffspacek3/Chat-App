@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { StyleSheet, View, KeyboardAvoidingView, Platform } from "react-native";
 import { GiftedChat, Bubble, InputToolbar } from "react-native-gifted-chat";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import MapView from 'react-native-maps';
 
 // Firebase
 import {
@@ -13,7 +14,7 @@ import {
   orderBy,
 } from "firebase/firestore";
 
-// Import Compenents
+// Import Components
 import CustomActions from "./CustomActions";
 
 // Destructure Name and Background From route.params
@@ -25,7 +26,11 @@ const Chat = ({ route, navigation, db, isConnected, storage }) => {
   let unsubMessages;
 
   useEffect(() => {
-    navigation.setOptions({ title: name });
+    navigation.setOptions({ title: route.params.name});
+    unsubscribeMessages = onSnapshot(query(collection(db, "messages"),
+  ))
+
+    
 
     if (isConnected == true) {
       // unregister current onSnapshot() listener to avoid registering multiple listeners when
@@ -131,7 +136,7 @@ const Chat = ({ route, navigation, db, isConnected, storage }) => {
         messages={messages} //yes
         renderBubble={renderBubble} //yes
         onSend={(messages) => onSend(messages)} //yes
-        renderActions={renderCustomActions}
+        renderActions={renderCustomActions} //yes
         renderCustomView={renderCustomView}
         user={{
           _id: route.params.userID,
