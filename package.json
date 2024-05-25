@@ -20,7 +20,7 @@
     "expo-location": "~16.1.0",
     "expo-media-library": "~15.4.1",
     "expo-status-bar": "~1.6.0",
-    "firebase": "^10.11.0",
+    "firebase": "^10.3.1",
     "node": "^18.20.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
